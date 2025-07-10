@@ -4,15 +4,15 @@ const mongoose = require('mongoose');
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: false // Changed from true to false
   },
   description: {
     type: String,
-    required: true
+    required: false // Changed from true to false
   },
   price: {
     type: String,
-    required: true
+    required: false // Changed from true to false
   },
   image: {
     type: String,
@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
   },
   contact: {
     type: String,
-    required: true
+    required: true // Keep contact as required
   },
   category: {
     type: String,

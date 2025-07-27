@@ -1,4 +1,3 @@
-// server.js
 // server.js - Updated with proper CORS configuration
 const express = require('express');
 const mongoose = require('mongoose');
@@ -18,18 +17,16 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001', 
-    'https://cnshop.yepper.cc/', // Add your actual frontend domain here
+    'https://cnshop.yepper.cc', // Your production frontend domain
+    'https://cnshop.yepper.cc/', // Add any other domains you need
     // Add any other domains you need
   ],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   optionsSuccessStatus: 200 // For legacy browser support
 };
 
-// Apply CORS middleware with options
 app.use(cors(corsOptions));
 
-// Alternative: For development, you can use a more permissive CORS setup
-// Uncomment the line below and comment out the above corsOptions if you want to allow all origins during development
 // app.use(cors({ origin: true, credentials: true }));
 
 app.use(express.json());
@@ -39,6 +36,10 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
+// Add a simple test route to verify CORS is working
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'CORS is working!', timestamp: new Date().toISOString() });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
